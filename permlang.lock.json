@@ -1,0 +1,16 @@
+{
+  "permlang": 1,
+  "functions": {
+    "src/leads.ts#handleLead": [
+      "env(HUBSPOT_TOKEN)",
+      "fs.write(./data)",
+      "fs.write(./data/leads.jsonl)",
+      "net(api.hubspot.com)"
+    ],
+    "src/store.ts#saveLead": [
+      "fs.write(./data)",
+      "fs.write(./data/leads.jsonl)"
+    ]
+  },
+  "unsafe": {}
+}

@@ -1,0 +1,32 @@
+# PermLang demo
+
+A small lead-intake service that shows [PermLang](https://github.com/PermLang/permlang)
+catching new access in a pull request.
+
+`handleLead` declares what it may touch:
+
+```ts
+/** @perm net(api.hubspot.com), env(HUBSPOT_TOKEN), fs.write(./data) */
+export async function handleLead(lead: Lead) { ... }
+```
+
+and [`permlang.lock.json`](permlang.lock.json) records everything the code can
+reach today.
+
+**See it in action:** the open pull request
+["Enrich leads before scoring"](../../pulls) is the kind of change an AI agent
+might make. It sends each lead's email and phone number to a data broker. The
+tests still pass. PermLang fails the check, marks the line, and comments on the
+pull request with exactly what's new.
+
+## Try it yourself
+
+```bash
+npm install
+npx permlang check src
+```
+
+Then add a `fetch` to a new host anywhere in `src/` and run it again.
+
+Set up PermLang in your own project with the
+[getting started guide](https://github.com/PermLang/permlang/blob/main/docs/getting-started.md).

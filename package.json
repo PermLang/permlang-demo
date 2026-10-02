@@ -1,0 +1,16 @@
+{
+  "name": "permlang-demo",
+  "private": true,
+  "description": "A small lead-intake service that shows PermLang catching new access in a pull request.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "permlang": "permlang"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "permlang": "^0.2.0",
+    "typescript": "^5.9.0"
+  }
+}
