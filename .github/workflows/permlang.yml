@@ -14,6 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+      # PermLang needs your dependencies' types (@types/node above all) to see file, process,
+      # and environment access. If you generate code, such as `prisma generate`, add it here too.
+      - run: npm ci --ignore-scripts --no-audit --no-fund
       - uses: PermLang/permlang@v0
         with:
           args: src
