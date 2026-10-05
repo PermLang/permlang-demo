@@ -1,6 +1,32 @@
 {
   "permlang": 1,
   "functions": {
+    ".github/workflows/permlang.yml#<permlang.yml>": [
+      "ci.action(PermLang/permlang)",
+      "ci.action(actions/checkout)",
+      "ci.action(actions/setup-node)",
+      "ci.permission(contents: read)",
+      "ci.permission(pull-requests: write)",
+      "ci.trigger(pull_request)",
+      "ci.trigger(push)",
+      "ci.unpinned(PermLang/permlang)",
+      "ci.unpinned(actions/checkout)",
+      "ci.unpinned(actions/setup-node)"
+    ],
+    ".github/workflows/tests.yml#<tests.yml>": [
+      "ci.action(actions/checkout)",
+      "ci.action(actions/setup-node)",
+      "ci.permission(contents: read)",
+      "ci.trigger(pull_request)",
+      "ci.trigger(push)",
+      "ci.unpinned(actions/checkout)",
+      "ci.unpinned(actions/setup-node)"
+    ],
+    "package.json#<package.json>": [
+      "npm.script(permlang: permlang)",
+      "npm.script(test: node --test \"test/**/*.test.ts\")",
+      "npm.script(typecheck: tsc --noEmit)"
+    ],
     "src/leads.ts#handleLead": [
       "env(HUBSPOT_TOKEN)",
       "fs.write(./data)",
