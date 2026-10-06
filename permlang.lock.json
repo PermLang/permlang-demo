@@ -1,5 +1,5 @@
 {
-  "permlang": 1,
+  "permlang": 2,
   "functions": {
     ".github/workflows/permlang.yml#<permlang.yml>": [
       "ci.action(PermLang/permlang)",
@@ -26,6 +26,12 @@
       "npm.script(permlang: permlang)",
       "npm.script(test: node --test \"test/**/*.test.ts\")",
       "npm.script(typecheck: tsc --noEmit)"
+    ],
+    "permlang.config.json#<permlang.config.json>": [
+      "permlang.files(src)",
+      "permlang.strictness(development)",
+      "permlang.tools(warn)",
+      "permlang.unmapped(warn)"
     ],
     "src/leads.ts#handleLead": [
       "env(HUBSPOT_TOKEN)",
