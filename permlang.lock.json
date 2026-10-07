@@ -5,13 +5,16 @@
       "ci.action(PermLang/permlang)",
       "ci.action(actions/checkout)",
       "ci.action(actions/setup-node)",
+      "ci.action(actions/upload-artifact)",
       "ci.permission(contents: read)",
       "ci.permission(pull-requests: write)",
+      "ci.trigger(merge_group)",
       "ci.trigger(pull_request)",
       "ci.trigger(push)",
       "ci.unpinned(PermLang/permlang)",
       "ci.unpinned(actions/checkout)",
-      "ci.unpinned(actions/setup-node)"
+      "ci.unpinned(actions/setup-node)",
+      "ci.unpinned(actions/upload-artifact)"
     ],
     ".github/workflows/tests.yml#<tests.yml>": [
       "ci.action(actions/checkout)",

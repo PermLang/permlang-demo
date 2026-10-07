@@ -2,24 +2,52 @@ name: PermLang
 
 on:
   pull_request:
+  merge_group:
   push:
     branches: [main]
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
-  permissions:
+  # Installs your dependencies, whose types PermLang reads (@types/node above all, to see file,
+  # process, and environment access). Installing can run code a pull request controls, even with
+  # install scripts off, so it happens here, with a read-only token, and not in the job that checks.
+  dependencies:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version: lts/*
-      # PermLang needs your dependencies' types (@types/node above all) to see file, process,
-      # and environment access. If you generate code, such as `prisma generate`, add it here too.
       - run: npm ci --ignore-scripts --no-audit --no-fund
+      # If you generate code, such as `prisma generate`, add it here. Code generated outside
+      # node_modules needs its folder added to the archive, and to the check's `generated`.
+      - name: Pack the dependencies for the check
+        run: find . -name node_modules -type d -prune -print0 | tar --null -cf "$RUNNER_TEMP/dependencies.tar" -T -
+      - uses: actions/upload-artifact@v7
+        with:
+          name: permlang-dependencies
+          path: ${{ runner.temp }}/dependencies.tar
+          retention-days: 1
+
+  # The check. Nothing from the pull request runs here: PermLang only reads its code, and the
+  # node_modules folders the job above installed. It runs even when that job fails, and then
+  # fails too: GitHub would skip it otherwise, and a skipped job counts as passed.
+  permissions:
+    needs: dependencies
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: PermLang/permlang@v0
         with:
+          dependencies: permlang-dependencies
           args: src
