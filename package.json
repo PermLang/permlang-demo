@@ -12,5 +12,9 @@
     "@types/node": "^24.0.0",
     "permlang": "^0.4.3",
     "typescript": "^5.9.0"
+  },
+  "dependencies": {
+    "ai": "^7.0.127",
+    "zod": "^4.6.5"
   }
 }
